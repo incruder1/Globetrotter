@@ -1,0 +1,152 @@
+[
+  {
+    "id": "1",
+    "name": "Eiffel Tower",
+    "location": "Paris, France",
+    "clues": [
+      "I was built for a World's Fair in 1889",
+      "I was once the tallest man-made structure in the world",
+      "I'm made of iron and was initially criticized by many Parisians"
+    ],
+    "funFacts": [
+      "The Eiffel Tower was supposed to be a temporary installation, intended to stand for 20 years before being dismantled",
+      "It takes 20,000 light bulbs to make the tower sparkle at night",
+      "The Eiffel Tower grows in summer! Due to thermal expansion, the tower can be up to 15 cm taller in summer than in winter"
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Machu Picchu",
+    "location": "Peru",
+    "clues": [
+      "I'm an ancient Incan citadel set high in the Andes Mountains",
+      "I was built in the 15th century and later abandoned",
+      "I was unknown to the outside world until 1911"
+    ],
+    "funFacts": [
+      "Machu Picchu was built without the use of wheels, iron tools, or mortar",
+      "The site is precisely aligned with astronomical events like the winter solstice",
+      "Many of the stones used in construction weigh more than 50 tons and were somehow transported up the mountain"
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Great Wall of China",
+    "location": "China",
+    "clues": [
+      "I stretch over 13,000 miles across northern China",
+      "I was built to protect against nomadic invasions",
+      "Construction on me began more than 2,000 years ago"
+    ],
+    "funFacts": [
+      "Contrary to popular belief, the Great Wall cannot be seen from the moon with the naked eye",
+      "The mortar used to bind the stones includes sticky rice",
+      "It's estimated that up to 1 million people died during the wall's construction"
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Taj Mahal",
+    "location": "Agra, India",
+    "clues": [
+      "I was built as a tomb for an emperor's favorite wife",
+      "My construction took over 20 years and 20,000 workers",
+      "I'm made of white marble that changes color throughout the day"
+    ],
+    "funFacts": [
+      "The Taj Mahal's four minarets (towers) were designed to lean slightly outward so that in case of collapse, they would fall away from the main structure",
+      "The precious stones used in the inlay work were sourced from all over Asia",
+      "During World War II, the Taj Mahal was covered with scaffolding to disguise it from enemy bombers"
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Colosseum",
+    "location": "Rome, Italy",
+    "clues": [
+      "I could hold up to 80,000 spectators in ancient times",
+      "I was used for gladiatorial contests and public spectacles",
+      "My construction began around 70-72 CE and was completed in 80 CE"
+    ],
+    "funFacts": [
+      "The Colosseum had a complex system of elevators and trapdoors that could quickly bring animals, gladiators, or scenery into the arena",
+      "It's estimated that over 500,000 people and over a million wild animals died in the Colosseum games",
+      "The Colosseum was originally covered with a massive canvas awning to protect spectators from the sun"
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Statue of Liberty",
+    "location": "New York, USA",
+    "clues": [
+      "I was a gift from France to the United States",
+      "I hold a torch in my right hand and a tablet in my left",
+      "My full name is 'Liberty Enlightening the World'"
+    ],
+    "funFacts": [
+      "The Statue of Liberty's face was modeled after the sculptor's mother",
+      "The seven spikes on her crown represent the seven continents and seas",
+      "The statue was delivered to the United States in 350 individual pieces packed in 214 crates"
+    ]
+  },
+  {
+    "id": "7",
+    "name": "Petra",
+    "location": "Jordan",
+    "clues": [
+      "I'm an ancient city carved into rose-colored stone cliffs",
+      "I was established as early as 312 BCE as the capital of the Nabataean Kingdom",
+      "I was rediscovered in 1812 after being lost to the Western world"
+    ],
+    "funFacts": [
+      "Petra's most famous structure, the Treasury, was featured in 'Indiana Jones and the Last Crusade'",
+      "The city's sophisticated water system allowed the Nabataeans to create an artificial oasis in the desert",
+      "Only about 15% of the ancient city has been uncovered; the rest remains underground"
+    ]
+  },
+  {
+    "id": "8",
+    "name": "Sydney Opera House",
+    "location": "Sydney, Australia",
+    "clues": [
+      "My distinctive sail-shaped shells make me instantly recognizable",
+      "I was designed by Danish architect Jørn Utzon",
+      "My construction took 14 years and was completed in 1973"
+    ],
+    "funFacts": [
+      "The Sydney Opera House's construction cost 14 times the original budget",
+      "The roof is covered with over 1 million tiles that are self-cleaning",
+      "The architect who designed it quit the project before it was completed and never saw the finished building in person"
+    ]
+  },
+  {
+    "id": "9",
+    "name": "Angkor Wat",
+    "location": "Cambodia",
+    "clues": [
+      "I'm the largest religious monument in the world",
+      "I was originally constructed as a Hindu temple, later becoming Buddhist",
+      "I appear on my country's national flag"
+    ],
+    "funFacts": [
+      "Angkor Wat is aligned with the spring equinox so that the sun rises directly over the central tower",
+      "The temple complex was 'lost' for centuries, covered by jungle until French explorers rediscovered it in the 1840s",
+      "The sandstone blocks used in construction were quarried more than 50km away and transported to the site"
+    ]
+  },
+  {
+    "id": "10",
+    "name": "Christ the Redeemer",
+    "location": "Rio de Janeiro, Brazil",
+    "clues": [
+      "I stand with arms outstretched over a major city",
+      "I'm made of reinforced concrete and soapstone",
+      "I was completed in 1931 after 9 years of construction"
+    ],
+    "funFacts": [
+      "The statue is struck by lightning several times a year, requiring constant repairs",
+      "The original design called for Christ holding a globe in one hand and a cross in the other",
+      "The statue weighs 635 tons and is 98 feet tall, not including its 26-foot pedestal"
+    ]
+  }
+]
