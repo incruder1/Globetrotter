@@ -4,17 +4,22 @@ import { v4 as uuidv4 } from 'uuid';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import fs from 'fs/promises';
+import redisClient from './config/redis.js';
+import routeDestination from "./routes/routedestination.js";
+import routeUser from "./routes/routeUser.js";
+import connectDB from "./config/db.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
+//MONGODB CONNECTION
+connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
-
 // In-memory storage for users
 const users = {};
 
@@ -23,19 +28,6 @@ const adminCredentials = {
   username: 'admin',
   password: 'admin123' // In a real app, this would be hashed
 };
-
-// Load destinations data
-const loadDestinations = async () => {
-  try {
-    const dataPath = join(__dirname, 'data', 'destinations.json');
-    const data = await fs.readFile(dataPath, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error('Error loading destinations:', error);
-    return [];
-  }
-};
-
 // Save leaderboard data
 const saveLeaderboard = async (leaderboardData) => {
   try {
@@ -63,67 +55,28 @@ const loadLeaderboard = async () => {
 };
 
 // Routes
-app.get('/api/destinations/random', async (req, res) => {
-  try {
-    const destinations = await loadDestinations();
-    if (destinations.length === 0) {
-      return res.status(404).json({ message: 'No destinations found' });
-    }
+app.use("/api/destinations", routeDestination);
+app.use("/api/user", routeUser);
 
-    // Get a random destination
-    const randomIndex = Math.floor(Math.random() * destinations.length);
-    const destination = destinations[randomIndex];
-
-    // Get 3 random incorrect destinations for multiple choice
-    const incorrectOptions = destinations
-      .filter(d => d.id !== destination.id)
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 3);
-
-    // Select 1-2 random clues
-    const clueCount = Math.floor(Math.random() * 2) + 1; // 1 or 2 clues
-    const selectedClues = destination.clues
-      .sort(() => 0.5 - Math.random())
-      .slice(0, clueCount);
-
-    // Create options array with correct answer and incorrect options
-    const options = [
-      { id: destination.id, name: destination.name },
-      ...incorrectOptions.map(d => ({ id: d.id, name: d.name }))
-    ].sort(() => 0.5 - Math.random());
-
-    res.json({
-      id: destination.id,
-      clues: selectedClues,
-      options,
-      funFacts: destination.funFacts,
-      location: destination.location
-    });
-  } catch (error) {
-    console.error('Error fetching random destination:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
-app.post('/api/users', (req, res) => {
-  const { username } = req.body;
+// app.post('/api/users', (req, res) => {
+//   const { username } = req.body;
   
-  if (!username) {
-    return res.status(400).json({ message: 'Username is required' });
-  }
+//   if (!username) {
+//     return res.status(400).json({ message: 'Username is required' });
+//   }
 
-  const userId = uuidv4();
-  users[userId] = {
-    id: userId,
-    username,
-    score: { correct: 0, incorrect: 0 },
-    highScore: 0,
-    gamesPlayed: 0,
-    createdAt: new Date()
-  };
+//   const userId = uuidv4();
+//   users[userId] = {
+//     id: userId,
+//     username,
+//     score: { correct: 0, incorrect: 0 },
+//     highScore: 0,
+//     gamesPlayed: 0,
+//     createdAt: new Date()
+//   };
 
-  res.status(201).json({ userId, username });
-});
+//   res.status(201).json({ userId, username });
+// });
 
 app.get('/api/users/:userId', (req, res) => {
   const { userId } = req.params;
