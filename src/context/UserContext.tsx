@@ -30,7 +30,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = 'http://localhost:3001/api';
+  const API_URL = 'https://globetrotter-84sf.onrender.com/api';
 
   const registerUser = async (username: string) => {
     setLoading(true);

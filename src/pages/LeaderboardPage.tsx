@@ -20,7 +20,7 @@ const LeaderboardPage: React.FC = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/leaderboard');
+        const response = await axios.get('https://globetrotter-84sf.onrender.com/api/leaderboard');
         setLeaderboard(response.data);
       } catch (error) {
         console.error('Error fetching leaderboard:', error);

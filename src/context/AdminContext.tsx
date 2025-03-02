@@ -19,7 +19,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = 'http://localhost:3001/api';
+  const API_URL = 'https://globetrotter-84sf.onrender.com/api';
 
   const login = async (username: string, password: string): Promise<boolean> => {
     setLoading(true);

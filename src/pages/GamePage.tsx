@@ -56,7 +56,7 @@ const GamePage: React.FC = () => {
     try {
       const username=localStorage.getItem('username');
       const response = await axios.get(
-        "http://localhost:3001/api/destinations/random", {params: { username }}
+        "https://globetrotter-84sf.onrender.com/api/destinations/random", {params: { username }}
       );
       setDestination(response.data);
       setCorrectLocation(response.data.location);
