@@ -2,7 +2,7 @@ import Admin from '../models/Admin.js';
 
 export const isAdmin = async (req, res, next) => {
   try {
-    const { adminId } = req.body; // Assume adminId is sent in the request
+    const { adminId } = req.body; 
 
     const admin = await Admin.findById(adminId);
     if (!admin) {
