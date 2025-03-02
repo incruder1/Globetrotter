@@ -4,6 +4,7 @@ import { Globe, Users, BarChart2, LogOut, Database, User, Award } from 'lucide-r
 import { useAdmin } from '../context/AdminContext';
 
 interface UserData {
+  _id:string;
   id: string;
   username: string;
   score: {
@@ -33,7 +34,6 @@ const AdminDashboardPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const { isAuthenticated, logout, fetchUsers, fetchStats } = useAdmin();
   const navigate = useNavigate();
-  console.log(users);
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/admin');
@@ -47,8 +47,8 @@ const AdminDashboardPage: React.FC = () => {
           fetchUsers(),
           fetchStats()
         ]);
-        setUsers(usersData);
-        setStats(statsData);
+        setUsers(usersData as UserData[]);
+        setStats(statsData as Stats);
 
       } catch (error) {
         console.error('Error loading admin data:', error);
@@ -240,7 +240,7 @@ const AdminDashboardPage: React.FC = () => {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {users.map((user) => (
-                      <tr key={user.id}>
+                      <tr key={user?._id}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {user?._id.substring(0, 5)}...
                         </td>

@@ -2,7 +2,7 @@ import { useState, FunctionComponent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Globe, MapPin, Compass, Users, Trophy, Clock } from "lucide-react";
 import { useUser } from "../context/UserContext";
- 
+
 
 const HomePage: FunctionComponent = () => {
   const [username, setUsername] = useState("");
@@ -19,8 +19,7 @@ const HomePage: FunctionComponent = () => {
     }
 
     try {
-       
-      await registerUser(username);
+       await registerUser(username);
       navigate("/game");
     } catch (error) {
       setError(`Failed to register. Please try again. Error: ${error}`);
@@ -49,11 +48,11 @@ const HomePage: FunctionComponent = () => {
         <div className="relative z-10 px-4 py-16 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-[70vh]">
           <div className="text-center max-w-3xl mx-auto">
             <div className="mb-6 inline-flex p-4 bg-blue-600 bg-opacity-90 rounded-full">
-              <Globe size={64} className="text-white" />
+              <Globe size={64} className="text-white" onClick={() => navigate("/")} />
             </div>
 
             <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-6xl mb-4">
-              <span className="block">Globetrotter</span>
+              <span className="block" >Globetrotter</span>
               <span className="block text-2xl mt-2 font-medium">
                 Test Your World Knowledge
               </span>

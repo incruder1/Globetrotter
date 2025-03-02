@@ -79,13 +79,11 @@ const GamePage: React.FC = () => {
     setQuestionCount(0);
     setGameOver(false);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (loading || result || gameOver) return;
 
-    // Start timer
     timerRef.current = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -100,7 +98,6 @@ const GamePage: React.FC = () => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, result, destination, gameOver]);
 
   const handleTimeout = async () => {
@@ -109,42 +106,30 @@ const GamePage: React.FC = () => {
     setResult("timeout");
     setSelectedOption(null);
 
-    // Get a random fun fact
     const randomFunFact =
       destination.funFacts[
         Math.floor(Math.random() * destination.funFacts.length)
       ];
     setFunFact(randomFunFact);
-
-    // Update score (incorrect)
     await updateScore(false);
-
-    // Trigger animation
     setAnimateResult(true);
   };
 
   const handleOptionSelect = async (optionId: string) => {
     if (result || !destination || gameOver) return;
 
-    // Clear timer
     if (timerRef.current) clearInterval(timerRef.current);
 
     setSelectedOption(optionId);
 
     const isCorrect = optionId === destination.id;
     setResult(isCorrect ? "correct" : "incorrect");
-
-    // Get a random fun fact
     const randomFunFact =
       destination.funFacts[
         Math.floor(Math.random() * destination.funFacts.length)
       ];
     setFunFact(randomFunFact);
-
-    // Update score
     await updateScore(isCorrect);
-
-    // Show confetti for correct answers
     if (isCorrect) {
       confetti({
         particleCount: 150,
@@ -152,8 +137,6 @@ const GamePage: React.FC = () => {
         origin: { y: 0.6 },
       });
     }
-
-    // Trigger animation
     setAnimateResult(true);
   };
 
@@ -162,9 +145,7 @@ const GamePage: React.FC = () => {
     setQuestionCount(newQuestionCount);
 
     if (newQuestionCount >= MAX_QUESTIONS) {
-      // Game over
       setGameOver(true);
-      // Mark game as completed in the backend
       
       await updateScore(false, true);
     } else {

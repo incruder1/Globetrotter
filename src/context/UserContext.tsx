@@ -20,6 +20,7 @@ interface UserContextType {
   updateScore: (correct: boolean, gameCompleted?: boolean) => Promise<void>;
   fetchUserById: (userId: string) => Promise<User | null>;
   resetGame: () => void;
+  // startGame?: () => Promise<void>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -37,7 +38,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       localStorage.removeItem('username');
       const response = await axios.post(`${API_URL}/user`, { username });
-      console.log('User registered:', response.data);
       setUser({
         id: response.data._id,
         username: response.data.username,
@@ -58,7 +58,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     if (!user) return;    
     try {
       const response = await axios.put(`${API_URL}/user/${user.id}/score`, { correct, gameCompleted });
-      console.log(user);
+      // console.log(user);
       setUser(prev => {
         if (!prev) return null;
         return {
@@ -70,6 +70,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       console.error('Failed to update score:', err);
     }
   };
+
+   
 
   const fetchUserById = async (userId: string): Promise<User | null> => {
     try {
@@ -101,7 +103,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       registerUser, 
       updateScore,
       fetchUserById,
-      resetGame
+      resetGame, 
     }}>
       {children}
     </UserContext.Provider>

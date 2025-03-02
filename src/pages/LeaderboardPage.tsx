@@ -45,9 +45,9 @@ const LeaderboardPage: React.FC = () => {
 
   const getMedalColor = (index: number): string => {
     switch (index) {
-      case 0: return 'text-yellow-400'; // Gold
-      case 1: return 'text-gray-400'; // Silver
-      case 2: return 'text-amber-700'; // Bronze
+      case 0: return 'text-yellow-400';
+      case 1: return 'text-gray-400'; 
+      case 2: return 'text-amber-700';
       default: return 'text-blue-500';
     }
   };
