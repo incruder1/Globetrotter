@@ -3,7 +3,7 @@ import redisClient from "../config/redis.js";
 
 export const destinationsController = async (req, res) => {
     try {
-      const { username } = req.body; // Get username from frontend
+      const { username } = req.query; // Get username from frontend
   
       if (!username) {
         return res.status(400).json({ message: "Username is required" });
