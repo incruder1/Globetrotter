@@ -2,20 +2,48 @@ import express from "express";
 import { v4 as uuidv4 } from "uuid";
 import User from "../models/userModel.js";
 import { updateLeaderboard } from "../helper/leaderboardHelper.js";
-export const UserController = async(req, res) => {
-//   res.json({ message: "Hello from destinations controller" });
+// export const UserController = async(req, res) => {
+// //   res.json({ message: "Hello from destinations controller" });
+//   try {
+//     const { username } = req.body;
+//     if (!username) {
+//       return res.status(400).json({ message: "Username is required" });
+//     }
+
+//     const existingUser = await User.findOne({ username });
+//     if (existingUser) {
+//       return res.status(201).json(existingUser);
+//     }
+
+//     const user = new User({ username });
+//     await user.save();
+
+//     res.status(201).json(user);
+//   } catch (error) {
+//     console.error("Error creating user:", error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
+
+export const UserController = async (req, res) => {
   try {
     const { username } = req.body;
     if (!username) {
       return res.status(400).json({ message: "Username is required" });
     }
 
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      return res.status(201).json(existingUser);
+    let user = await User.findOne({ username });
+
+    if (user) {
+      if (user.score.correct > 0 || user.score.incorrect > 0) {
+        user.score.correct = 0;
+        user.score.incorrect = 0;
+        await user.save();
+      }
+      return res.status(201).json(user);
     }
 
-    const user = new User({ username });
+    user = new User({ username });
     await user.save();
 
     res.status(201).json(user);
@@ -24,6 +52,7 @@ export const UserController = async(req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 export const findUserController= async(req, res) => {
   try {
@@ -84,3 +113,23 @@ export const updateUserScore = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+export const startNewGame = async (req, res) => {
+  try {
+      const { userId } = req.params;
+      const user = await User.findById(userId);
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
+
+      user.score.correct = 0;
+      user.score.incorrect = 0;
+      await user.save();
+
+      res.json({ score: user.score, gamesPlayed: user.gamesPlayed });
+  } catch (error) {
+      console.error("Error starting new game:", error);
+      res.status(500).json({ message: "Server error" });
+  }
+};
+
