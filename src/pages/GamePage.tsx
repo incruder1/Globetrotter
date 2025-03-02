@@ -73,7 +73,6 @@ const GamePage: React.FC = () => {
       navigate("/");
       return;
     }
-
     resetGame();
     fetchRandomDestination();
     setQuestionCount(0);
@@ -191,11 +190,12 @@ const GamePage: React.FC = () => {
 
       {/* Header */}
       <header className="relative z-10 flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-        <div className="flex items-center">
-          <div className="bg-white bg-opacity-20 p-2 rounded-full mr-3">
+        <div className="flex items-center cursor-pointer" onClick={() => navigate("/")}>
+          <div className="bg-white bg-opacity-20 p-2 rounded-full mr-3 ">
             <Globe className="text-white" size={28} />
           </div>
-          <h1 className="text-2xl font-bold text-white">Globetrotter</h1>
+          <h1 className="text-2xl font-bold text-white cursor-pointer " 
+          >Globetrotter</h1>
         </div>
 
         {user && (
