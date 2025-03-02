@@ -25,29 +25,37 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     setError(null);
     try {
       const response = await axios.post(`${API_URL}/admin/login`, { username, password });
+  
       if (response.data.success) {
+        const { token } = response.data;
+        localStorage.setItem("token", token);
+  
+        // Decode JWT to extract adminId
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        localStorage.setItem("adminId", payload.adminId);
+  
         setIsAuthenticated(true);
         return true;
       } else {
-        setError('Invalid credentials');
+        setError("Invalid credentials");
         return false;
       }
     } catch (err) {
-      setError('Login failed');
+      setError("Login failed");
       console.error(err);
       return false;
     } finally {
       setLoading(false);
     }
   };
+  
 
   const logout = () => {
     setIsAuthenticated(false);
   };
 
   const fetchUsers = async (): Promise<any[]> => {
-    if (!isAuthenticated) return [];
-    
+      
     try {
       const response = await axios.get(`${API_URL}/admin/users`);
       return response.data;
@@ -59,15 +67,21 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   const fetchStats = async (): Promise<any> => {
     if (!isAuthenticated) return {};
-    
+  
+    const adminId = localStorage.getItem("adminId");
+    const token = localStorage.getItem("token");
+  
+    if (!adminId || !token) return {};
+  
     try {
-      const response = await axios.get(`${API_URL}/admin/stats`);
+      const response = await axios.get(`http://localhost:3001/api/admin/stats`);
       return response.data;
     } catch (err) {
-      console.error('Failed to fetch stats:', err);
+      console.error("Failed to fetch stats:", err);
       return {};
     }
   };
+  
 
   return (
     <AdminContext.Provider value={{ 

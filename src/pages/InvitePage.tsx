@@ -28,7 +28,8 @@ const InvitePage: React.FC = () => {
           setError('User not found');
         }
       } catch (err) {
-        setError('Failed to load user information');
+        setError(`Failed to load user information: ${err}`);
+
       } finally {
         setLoading(false);
       }
@@ -37,24 +38,37 @@ const InvitePage: React.FC = () => {
     loadUser();
   }, [userId, fetchUserById]);
 
-  const handleShare = () => {
+  const handleShare = async () => {
     if (!inviter) return;
-    
+
     const shareUrl = window.location.href;
     const shareText = `I challenge you to beat my Globetrotter score of ${inviter.highScore || inviter.score.correct}! Can you guess these famous places? ${shareUrl}`;
-    
+
     if (navigator.share) {
-      navigator.share({
-        title: 'Globetrotter Challenge',
-        text: shareText,
-        url: shareUrl,
-      }).catch((error) => console.log('Error sharing', error));
-    } else {
-      // Fallback for browsers that don't support the Web Share API
-      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-      window.open(whatsappUrl, '_blank');
+        try {
+            await navigator.share({
+                title: 'Globetrotter Challenge',
+                text: shareText,
+                url: shareUrl,
+            });
+            return;
+        } catch (error) {
+            console.log('Error sharing:', error);
+        }
     }
-  };
+
+    // Copy URL to clipboard as fallback
+    try {
+        await navigator.clipboard.writeText(shareUrl);
+        alert('Link copied to clipboard!');
+    } catch (err) {
+        console.error('Failed to copy:', err);
+        // Fallback to WhatsApp sharing if clipboard fails
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+        window.open(whatsappUrl, '_blank');
+    }
+};
+
 
   const handlePlayGame = () => {
     navigate('/game');

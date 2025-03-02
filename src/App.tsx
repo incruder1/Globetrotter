@@ -1,10 +1,9 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import GamePage from './pages/GamePage';
 import InvitePage from './pages/InvitePage';
 import LeaderboardPage from './pages/LeaderboardPage';
-import {AdminLoginPage} from './pages/AdminLoginPage';
+import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import { UserProvider } from './context/UserContext';
 import { AdminProvider } from './context/AdminContext';

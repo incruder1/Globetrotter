@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Globe, Users, BarChart2, LogOut, Database, User, Award, Clock } from 'lucide-react';
+import { Globe, Users, BarChart2, LogOut, Database, User, Award } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext';
 
 interface UserData {
@@ -33,7 +33,7 @@ const AdminDashboardPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const { isAuthenticated, logout, fetchUsers, fetchStats } = useAdmin();
   const navigate = useNavigate();
-
+  console.log(users);
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/admin');
@@ -49,6 +49,7 @@ const AdminDashboardPage: React.FC = () => {
         ]);
         setUsers(usersData);
         setStats(statsData);
+
       } catch (error) {
         console.error('Error loading admin data:', error);
       } finally {
@@ -139,7 +140,7 @@ const AdminDashboardPage: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Total Users</p>
-                      <h3 className="text-2xl font-bold">{stats.totalUsers}</h3>
+                      <h3 className="text-2xl font-bold text-black">{stats.totalUsers}</h3>
                     </div>
                   </div>
                 </div>
@@ -151,7 +152,7 @@ const AdminDashboardPage: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Games Played</p>
-                      <h3 className="text-2xl font-bold">{stats.totalGamesPlayed}</h3>
+                      <h3 className="text-2xl font-bold text-black">{stats.totalGamesPlayed}</h3>
                     </div>
                   </div>
                 </div>
@@ -163,7 +164,7 @@ const AdminDashboardPage: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Average Score</p>
-                      <h3 className="text-2xl font-bold">{stats.averageScore.toFixed(1)}</h3>
+                      <h3 className="text-2xl font-bold text-black">{stats.averageScore.toFixed(1)}</h3>
                     </div>
                   </div>
                 </div>
@@ -241,7 +242,7 @@ const AdminDashboardPage: React.FC = () => {
                     {users.map((user) => (
                       <tr key={user.id}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {user.id.substring(0, 8)}...
+                          {user?._id.substring(0, 5)}...
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">

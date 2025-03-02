@@ -35,14 +35,17 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post(`${API_URL}/users`, { username });
+      localStorage.removeItem('username');
+      const response = await axios.post(`${API_URL}/user`, { username });
+      console.log('User registered:', response.data);
       setUser({
-        id: response.data.userId,
+        id: response.data._id,
         username: response.data.username,
         score: { correct: 0, incorrect: 0 },
         highScore: 0,
         gamesPlayed: 0
       });
+      localStorage.setItem('username', response.data.username);
     } catch (err) {
       setError('Failed to register user');
       console.error(err);
@@ -52,10 +55,10 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const updateScore = async (correct: boolean, gameCompleted = false) => {
-    if (!user) return;
-    
+    if (!user) return;    
     try {
-      const response = await axios.put(`${API_URL}/users/${user.id}/score`, { correct, gameCompleted });
+      const response = await axios.put(`${API_URL}/user/${user.id}/score`, { correct, gameCompleted });
+      console.log(user);
       setUser(prev => {
         if (!prev) return null;
         return {
@@ -70,7 +73,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const fetchUserById = async (userId: string): Promise<User | null> => {
     try {
-      const response = await axios.get(`${API_URL}/users/${userId}`);
+      const response = await axios.get(`${API_URL}/user/${userId}`);
       return response.data;
     } catch (err) {
       console.error('Failed to fetch user:', err);
