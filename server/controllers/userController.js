@@ -12,7 +12,7 @@ export const UserController = async(req, res) => {
 
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ message: "Username already exists" });
+      return res.status(201).json(existingUser);
     }
 
     const user = new User({ username });
@@ -72,7 +72,7 @@ export const updateUserScore = async (req, res) => {
       const finalScore = user.score.correct;
 
       // Reset score for the next game
-      user.score = { correct: 0, incorrect: 0 };
+      // user.score = { correct: 0, incorrect: 0 };
 
       await updateLeaderboard(userId, finalScore);
     }

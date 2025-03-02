@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/login', adminLogin);
 router.post('/signup', adminSignup);
-router.get('/users', isAdmin, getAllUsers);
-router.get('/stats', isAdmin, getAdminStats);
+router.get('/users', getAllUsers);
+router.get('/stats', getAdminStats);
 
 export default router;

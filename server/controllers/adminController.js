@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/userModel.js';
 import Leaderboard from '../models/Leaderboard.js';
+import { comparePassword } from '../helper/hashHelper.js';
+
 export const getAllUsers = async (req, res) => {
     try {
       const users = await User.find();
@@ -11,24 +13,25 @@ export const getAllUsers = async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   };
-export const adminLogin = async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const admin = await Admin.findOne({ username });
-
-    if (!admin || admin.password !== password) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+ 
+  
+  export const adminLogin = async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      const admin = await Admin.findOne({ username });
+  
+      if (!admin || !(await comparePassword(password, admin.password))) {
+        return res.status(401).json({ success: false, message: 'Invalid credentials' });
+      }
+  
+      const token = jwt.sign({ adminId: admin._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  
+      res.json({ success: true, message: 'Login successful', token });
+    } catch (error) {
+      console.error('Error during admin login:', error);
+      res.status(500).json({ message: 'Server error' });
     }
-
-    const token = jwt.sign({ adminId: admin._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.json({ success: true, message: 'Login successful', token });
-  } catch (error) {
-    console.error('Error during admin login:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
-};
-
+  };
 
 export const adminSignup = async (req, res) => {
     try {

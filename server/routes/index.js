@@ -7,7 +7,7 @@ import adminRoutes from './adminRoutes.js';
 const router = express.Router();
 
 router.use('/destinations', routeDestination);
-router.use('/users', routeUser);
+router.use('/user', routeUser);
 router.use('/leaderboard', routeLeaderBoard);
 router.use('/admin', adminRoutes);
 
