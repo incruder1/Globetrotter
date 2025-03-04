@@ -51,6 +51,8 @@ Endpoints:
 GET /leaderboard: Fetch the top players from the leaderboard.
  ```
 ### 4. Admin
+## Use Username :- admin
+## Password:- admin
  ```
 Route: /admin
 '/login', adminLogin
